@@ -22,7 +22,10 @@ CREATE TABLE users
     -- login info --
     username VARCHAR(50) NOT NULL UNIQUE,
     -- password is hashed, length to support hashing algorithms
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+
+    -- timestamp created --
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 
@@ -40,6 +43,9 @@ CREATE TABLE contacts
     lastName VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL,
     phone VARCHAR(20) NOT NULL,
+
+    -- timestamp created --
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
     -- Foreign Key Constraint for users, if user deleted all associated contacts deleted --
     CONSTRAINT fk_contacts_user
