@@ -17,6 +17,7 @@
 		$stmt->bind_param("ii", $userId, $contactId);
 		$stmt->execute();
 		
+		# TODO: Possibly return the deleted contact's data
         # Check if the selected contact was deleted
 		if ($stmt->affected_rows > 0)
 		{

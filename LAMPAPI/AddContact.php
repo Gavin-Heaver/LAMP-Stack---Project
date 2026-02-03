@@ -5,7 +5,7 @@
 	$lastName = $inData["lastName"];
 	$phone = $inData["phone"];
 	$email = $inData["email"];
-	$userId = $inData["userId"]
+	$userId = $inData["userId"];
 
 	//change to new user
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
