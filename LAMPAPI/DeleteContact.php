@@ -4,17 +4,20 @@
 	$userId = $inData["userId"];
     $contactId = $inData["id"];
 
-	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
+    // TODO: Update with actual connection
+	// $conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 	if ($conn->connect_error) 
 	{
 		returnWithError( $conn->connect_error );
 	} 
 	else
 	{
+        # Delete contact that belongs to userId and has the requested id
 		$stmt = $conn->prepare("DELETE FROM contacts WHERE userId=? AND id=?");
 		$stmt->bind_param("ii", $userId, $contactId);
 		$stmt->execute();
 		
+        # Check if the selected contact was deleted
 		if ($stmt->affected_rows > 0)
 		{
 			returnWithError("");

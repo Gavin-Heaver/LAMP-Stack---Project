@@ -1,11 +1,13 @@
 <?php
-
 	$inData = getRequestInfo();
+
+	$userId = $inData["userId"];
 	
 	$searchResults = "";
 	$searchCount = 0;
 
-	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
+	// TODO: Update with actual connection
+	// $conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 	if ($conn->connect_error) 
 	{
 		returnWithError( $conn->connect_error );
@@ -15,7 +17,7 @@
 		# Send SQL query to search contact by firstName, lastName, phone, email
 		$stmt = $conn->prepare("SELECT * from contacts where (firstName like ? OR lastName like ? OR phone like ? OR email like ?) and userId=?");
 		$searchPattern = "%" . $inData["search"] . "%";
-		$stmt->bind_param("ssssi", $searchPattern, $searchPattern, $searchPattern, $searchPattern, $inData["userId"]);
+		$stmt->bind_param("ssssi", $searchPattern, $searchPattern, $searchPattern, $searchPattern, $userId);
 		$stmt->execute();
 		
 		$result = $stmt->get_result();
