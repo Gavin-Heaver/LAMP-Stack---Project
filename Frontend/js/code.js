@@ -46,7 +46,7 @@ function doLogin()
 
 				saveCookie();
 	
-				window.location.href = "color.html";
+				window.location.href = "contacts.html";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -108,15 +108,27 @@ function doLogout()
 	window.location.href = "index.html";
 }
 
-function addColor()
+//Modified from addColor function
+function addContact()
 {
-	let newColor = document.getElementById("colorText").value;
-	document.getElementById("colorAddResult").innerHTML = "";
+	let firstName = document.getElementById("contactFirstName").value;
+	let lastName = document.getElementById("contactLastName").value;
+	let phone = document.getElementById("contactPhone").value;
+	let email = document.getElementById("contactEmail").value;
 
-	let tmp = {color:newColor,userId,userId};
+
+	document.getElementById("contactResult").innerHTML = "";
+
+	let tmp = {
+		firstName:firstName,
+		lastName:lastName,
+		phone:phone,
+		email:email,
+		userId:userId
+	};
 	let jsonPayload = JSON.stringify( tmp );
 
-	let url = urlBase + '/AddColor.' + extension;
+	let url = urlBase + '/AddContact.' + extension;
 	
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -127,29 +139,35 @@ function addColor()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("colorAddResult").innerHTML = "Color has been added";
+				document.getElementById("contactResult").innerHTML = "Contact added";
+			
+				document.getElementById("contactFirstName").value = "";
+				document.getElementById("contactLastName").value = "";
+				document.getElementById("contactPhone").value = "";
+				document.getElementById("contactEmail").value = "";
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("colorAddResult").innerHTML = err.message;
+		document.getElementById("contactResult").innerHTML = err.message;
 	}
 	
 }
 
-function searchColor()
+//Modified from searchColor function
+function doSearch()
 {
 	let srch = document.getElementById("searchText").value;
-	document.getElementById("colorSearchResult").innerHTML = "";
+	document.getElementById("searchResult").innerHTML = "";
 	
-	let colorList = "";
+	let contactList = "";
 
 	let tmp = {search:srch,userId:userId};
 	let jsonPayload = JSON.stringify( tmp );
 
-	let url = urlBase + '/SearchColors.' + extension;
+	let url = urlBase + '/SearchContacts.' + extension;
 	
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -160,26 +178,35 @@ function searchColor()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
-				let jsonObject = JSON.parse( xhr.responseText );
-				
-				for( let i=0; i<jsonObject.results.length; i++ )
+				let jsonObject = JSON.parse(xhr.responseText);
+
+				if (jsonObject.results.length === 0)
 				{
-					colorList += jsonObject.results[i];
-					if( i < jsonObject.results.length - 1 )
-					{
-						colorList += "<br />\r\n";
-					}
+					document.getElementById("searchResult").innerHTML = "No contacts found";
+					return;
 				}
-				
-				document.getElementsByTagName("p")[0].innerHTML = colorList;
+
+				let contactList = "";
+
+				for (let i = 0; i < jsonObject.results.length; i++)
+				{
+					let c = jsonObject.results[i];
+
+					contactList +=
+						c.firstName + " " + c.lastName + "<br>" +
+						"Email: " + c.email + "<br>" +
+						"Phone: " + c.phone + "<br><br>";
+				}
+
+				document.getElementById("searchResult").innerHTML = contactList;
 			}
 		};
+
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("colorSearchResult").innerHTML = err.message;
+		document.getElementById("searchResult").innerHTML = err.message;
 	}
 	
 }
