@@ -231,7 +231,7 @@ function doSearch()
 			{
 				let jsonObject = JSON.parse(xhr.responseText);
 
-				if (jsonObject.results.length === 0)
+				if (!jsonObject.results || jsonObject.results.length === 0)
 				{
 					document.getElementById("searchResult").innerHTML = "No contacts found";
 					return;
