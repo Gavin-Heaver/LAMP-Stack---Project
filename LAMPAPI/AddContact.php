@@ -15,7 +15,7 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("INSERT into users (firstName, lastName, phone, email, userId) VALUES(?,?,?,?)");
+		$stmt = $conn->prepare("INSERT into users (firstName, lastName, phone, email, userId) VALUES(?,?,?,?,?)");
 		$stmt->bind_param("ssssi", $firstName, $lastName, $phone, $email, $userId); //change password to be hash stuff
 		$stmt->execute();
 		$stmt->close();
