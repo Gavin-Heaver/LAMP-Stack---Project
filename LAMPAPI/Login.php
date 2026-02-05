@@ -15,7 +15,7 @@
 	else // if it is do this 
 	{
 		//need to add code to do the hashing stuff
-		$stmt = $conn->prepare("SELECT ID,firstName,lastName FROM users WHERE username=? AND password =?");
+		$stmt = $conn->prepare("SELECT id,firstName,lastName FROM users WHERE username=? AND password =?");
 		$stmt->bind_param("ss", $inData["login"], $inData["password"]); 
 		$stmt->execute();
 		$result = $stmt->get_result();
@@ -23,7 +23,7 @@
 		
 		if( $row = $result->fetch_assoc()  )
 		{
-			returnWithInfo( $row['firstName'], $row['lastName'], $row['ID'] );
+			returnWithInfo( $row['firstName'], $row['lastName'], $row['id'] );
 		}
 		else
 		{
