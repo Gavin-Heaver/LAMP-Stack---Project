@@ -7,7 +7,7 @@
 	$password = $inData["password"];
 
 	//connect, dont forget to change to update to new sql user
-	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
+	$conn = new mysqli("localhost", "team", "cop4331", "contact_manager"); 
 	if ($conn->connect_error) 
 	{
 		returnWithError( $conn->connect_error );

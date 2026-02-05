@@ -6,7 +6,7 @@
 	$lastName = "";
 	
 	//change the connection to sql database to match updated
-	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331"); 
+	$conn = new mysqli("localhost", "team", "cop4331", "contact_manager"); 
 		
 	if( $conn->connect_error ) //check connection if it good
 	{
