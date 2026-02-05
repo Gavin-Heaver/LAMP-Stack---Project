@@ -58,6 +58,57 @@ function doLogin()
 
 }
 
+//New doSignup function
+function doSignup()
+{
+	let firstName = document.getElementById("signupFirstName").value;
+	let lastName  = document.getElementById("signupLastName").value;
+	let login     = document.getElementById("signupLogin").value;
+	let password  = document.getElementById("signupPassword").value;
+
+	document.getElementById("signupResult").innerHTML = "";
+
+	let tmp = {
+		firstName: firstName,
+		lastName: lastName,
+		login: login,
+		password: password
+	};
+
+	let jsonPayload = JSON.stringify(tmp);
+
+	let url = urlBase + '/Register.' + extension;
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+	try
+	{
+		xhr.onreadystatechange = function()
+		{
+			if (this.readyState == 4 && this.status == 200)
+			{
+				let jsonObject = JSON.parse(xhr.responseText);
+
+				if (jsonObject.error && jsonObject.error.length > 0)
+				{
+					document.getElementById("signupResult").innerHTML = jsonObject.error;
+					return;
+				}
+
+				document.getElementById("signupResult").innerHTML = "Account created successfully!";
+			}
+		};
+
+		xhr.send(jsonPayload);
+	}
+	catch (err)
+	{
+		document.getElementById("signupResult").innerHTML = err.message;
+	}
+}
+
 function saveCookie()
 {
 	let minutes = 20;
