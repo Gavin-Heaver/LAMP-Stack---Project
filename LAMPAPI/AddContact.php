@@ -8,7 +8,7 @@
 	$userId = $inData["userId"];
 
 	//change to new user
-	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
+	$conn = new mysqli("localhost", "team", "cop4331", "contact_manager"); 
 	if ($conn->connect_error) 
 	{
 		returnWithError( $conn->connect_error );

@@ -3,7 +3,7 @@ This is our LAMP Stack Project for COP4331 under Professor Aedo. The LAMP projec
 
 Contributors to the project and roles: <br>
 Gavin Heaver - Project Manager and Database <br>
-Daniela Cabrera - Database <br>
+Daniela Cifuentes Cabrera - Database <br>
 Daniel Rojas - API <br>
 Oliver Morales - API <br>
 Jake Matthews - Frontend <br>
