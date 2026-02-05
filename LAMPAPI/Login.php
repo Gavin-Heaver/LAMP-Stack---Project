@@ -15,7 +15,7 @@
 	else // if it is do this 
 	{
 		//need to add code to do the hashing stuff
-		$stmt = $conn->prepare("SELECT ID,firstName,lastName FROM Users WHERE Login=? AND Password =?");
+		$stmt = $conn->prepare("SELECT ID,firstName,lastName FROM users WHERE username=? AND Password =?");
 		$stmt->bind_param("ss", $inData["login"], $inData["password"]); 
 		$stmt->execute();
 		$result = $stmt->get_result();
