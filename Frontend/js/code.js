@@ -63,7 +63,7 @@ function doSignup()
 {
 	let firstName = document.getElementById("firstName").value;
 	let lastName  = document.getElementById("lastName").value;
-	let username     = document.getElementById("signupName").value;
+	let username  = document.getElementById("signupName").value;
 	let password  = document.getElementById("signupPassword").value;
 
 	document.getElementById("signupResult").innerHTML = "";
@@ -159,52 +159,75 @@ function doLogout()
 	window.location.href = "index.html";
 }
 
-//Modified from addColor function
+//Modified from addColor function, added edit function inside
 function addContact()
 {
-	let firstName = document.getElementById("contactFirstName").value;
-	let lastName = document.getElementById("contactLastName").value;
-	let phone = document.getElementById("contactPhone").value;
-	let email = document.getElementById("contactEmail").value;
+    let firstName = document.getElementById("contactFirstName").value;
+    let lastName = document.getElementById("contactLastName").value;
+    let phone = document.getElementById("contactPhone").value;
+    let email = document.getElementById("contactEmail").value;
 
+    document.getElementById("contactResult").innerHTML = "";
 
-	document.getElementById("contactResult").innerHTML = "";
+    // Base payload (used for both add and edit)
+    let tmp = {
+        firstName: firstName,
+        lastName: lastName,
+        phone: phone,
+        email: email,
+        userId: userId
+    };
 
-	let tmp = {
-		firstName:firstName,
-		lastName:lastName,
-		phone:phone,
-		email:email,
-		userId:userId
-	};
-	let jsonPayload = JSON.stringify( tmp );
+    // Decide which API to call
+    let url;
 
-	let url = urlBase + '/AddContact.' + extension;
-	
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				document.getElementById("contactResult").innerHTML = "Contact added";
-			
-				document.getElementById("contactFirstName").value = "";
-				document.getElementById("contactLastName").value = "";
-				document.getElementById("contactPhone").value = "";
-				document.getElementById("contactEmail").value = "";
-			}
-		};
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("contactResult").innerHTML = err.message;
-	}
-	
+    if (window.editingContactId)
+    {
+        // EDIT existing contact
+        tmp.id = window.editingContactId;
+        url = urlBase + '/UpdateContact.' + extension;
+    }
+    else
+    {
+        // ADD new contact
+        url = urlBase + '/AddContact.' + extension;
+    }
+
+    let jsonPayload = JSON.stringify(tmp);
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    try
+    {
+        xhr.onreadystatechange = function()
+        {
+            if (this.readyState == 4 && this.status == 200)
+            {
+                document.getElementById("contactResult").innerHTML =
+                    window.editingContactId ? "Contact updated" : "Contact added";
+
+                // Clear edit mode
+                window.editingContactId = null;
+
+                // Clear form
+                document.getElementById("contactFirstName").value = "";
+                document.getElementById("contactLastName").value = "";
+                document.getElementById("contactPhone").value = "";
+                document.getElementById("contactEmail").value = "";
+
+                // Refresh contact list
+                doSearch();
+            }
+        };
+
+        xhr.send(jsonPayload);
+    }
+    catch (err)
+    {
+        document.getElementById("contactResult").innerHTML = err.message;
+    }
 }
 
 //Modified from searchColor function
@@ -243,10 +266,19 @@ function doSearch()
 				{
 					let c = jsonObject.results[i];
 
-					contactList +=
-						c.firstName + " " + c.lastName + "<br>" +
-						"Email: " + c.email + "<br>" +
-						"Phone: " + c.phone + "<br><br>";
+					contactList += `
+						<div class="contactRow">
+							<span class="contactInfo">
+								${c.firstName} ${c.lastName} | ${c.phone} | ${c.email}
+							</span>
+							<button class="smallButton" onclick="editContact(${c.id})">
+								Edit
+							</button>
+							<button class="smallButton danger" onclick="deleteContact(${c.id})">
+								Delete
+							</button>
+						</div>
+					`;
 				}
 
 				document.getElementById("searchResult").innerHTML = contactList;
@@ -259,5 +291,45 @@ function doSearch()
 	{
 		document.getElementById("searchResult").innerHTML = err.message;
 	}
-	
+}
+
+function deleteContact(contactId)
+{
+    if (!confirm("Are you sure you want to delete this contact?"))
+        return;
+
+    let tmp = {
+        id: contactId,
+        userId: userId
+    };
+
+    let jsonPayload = JSON.stringify(tmp);
+    let url = urlBase + '/DeleteContact.' + extension;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    xhr.onreadystatechange = function()
+    {
+        if (this.readyState == 4 && this.status == 200)
+        {
+            doSearch(); //refresh list
+        }
+    };
+
+    xhr.send(jsonPayload);
+}
+
+function editContact(contactId)
+{
+    // Find the contact in the last search results
+    let rows = document.getElementsByClassName("contactRow");
+
+    // For now, just store the ID globally
+    window.editingContactId = contactId;
+
+    // Tell user what’s happening
+    document.getElementById("contactResult").innerHTML =
+        "Editing contact. Make changes and click Save.";
 }
