@@ -46,21 +46,21 @@
 			<button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
 		</div>
 
+		<div id="editOverlay" style="display:none;"></div>
+
+		<div id="editWindow" style="display:none;">
+			<span class="inner-title">Edit Contact</span><br />
+
+			<input type="text" id="editFirstName" placeholder="First Name" /><br />
+			<input type="text" id="editLastName" placeholder="Last Name" /><br />
+			<input type="text" id="editPhone" placeholder="Phone" /><br />
+			<input type="text" id="editEmail" placeholder="Email" /><br />
+
+			<button class="buttons" onclick="saveEdit()">Save</button><br />
+			<button class="buttons" onclick="closeEdit()">Cancel</button>
+		</div>
+
 	</body>
-
-	<div id="editOverlay" style="display:none;"></div>
-
-	<div id="editWindow" style="display:none;">
-		<span class="inner-title">Edit Contact</span><br />
-
-		<input type="text" id="editFirstName" placeholder="First Name" /><br />
-		<input type="text" id="editLastName" placeholder="Last Name" /><br />
-		<input type="text" id="editPhone" placeholder="Phone" /><br />
-		<input type="text" id="editEmail" placeholder="Email" /><br />
-
-		<button class="buttons" onclick="saveEdit()">Save</button><br />
-		<button class="buttons" onclick="closeEdit()">Cancel</button>
-	</div>
 </html>
  -->
 
