@@ -357,4 +357,6 @@ function closeEdit()
 {
 	document.getElementById("editWindow").style.display = "none";
 	window.editingContactId = null;
+
+	document.getElementById("contactResult").innerHTML = "";
 }
