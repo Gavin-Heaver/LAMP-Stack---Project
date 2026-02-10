@@ -162,72 +162,58 @@ function doLogout()
 //Modified from addColor function, added edit function inside
 function addContact()
 {
-    let firstName = document.getElementById("contactFirstName").value;
-    let lastName = document.getElementById("contactLastName").value;
-    let phone = document.getElementById("contactPhone").value;
-    let email = document.getElementById("contactEmail").value;
+	let firstName = document.getElementById("contactFirstName").value;
+	let lastName  = document.getElementById("contactLastName").value;
+	let phone     = document.getElementById("contactPhone").value;
+	let email     = document.getElementById("contactEmail").value;
 
-    document.getElementById("contactResult").innerHTML = "";
+	document.getElementById("contactResult").innerHTML = "";
 
-    // Base payload (used for both add and edit)
-    let tmp = {
-        firstName: firstName,
-        lastName: lastName,
-        phone: phone,
-        email: email,
-        userId: userId
-    };
+	let tmp = {
+		firstName,
+		lastName,
+		phone,
+		email,
+		userId
+	};
 
-    // Decide which API to call
-    let url;
+	let url;
 
-    if (window.editingContactId)
-    {
-        // EDIT existing contact
-        tmp.id = window.editingContactId;
-        url = urlBase + '/UpdateContact.' + extension;
-    }
-    else
-    {
-        // ADD new contact
-        url = urlBase + '/AddContact.' + extension;
-    }
+	if (window.editingContactId)
+	{
+		//EDIT
+		tmp.id = window.editingContactId;
+		url = urlBase + '/UpdateContact.' + extension;
+	}
+	else
+	{
+		//ADD
+		url = urlBase + '/AddContact.' + extension;
+	}
 
-    let jsonPayload = JSON.stringify(tmp);
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	xhr.onreadystatechange = function ()
+	{
+		if (this.readyState === 4 && this.status === 200)
+		{
+			document.getElementById("contactResult").innerHTML =
+				window.editingContactId ? "Contact updated" : "Contact added";
 
-    try
-    {
-        xhr.onreadystatechange = function()
-        {
-            if (this.readyState == 4 && this.status == 200)
-            {
-                document.getElementById("contactResult").innerHTML =
-                    window.editingContactId ? "Contact updated" : "Contact added";
+			window.editingContactId = null;
 
-                // Clear edit mode
-                window.editingContactId = null;
+			document.getElementById("contactFirstName").value = "";
+			document.getElementById("contactLastName").value = "";
+			document.getElementById("contactPhone").value = "";
+			document.getElementById("contactEmail").value = "";
 
-                // Clear form
-                document.getElementById("contactFirstName").value = "";
-                document.getElementById("contactLastName").value = "";
-                document.getElementById("contactPhone").value = "";
-                document.getElementById("contactEmail").value = "";
+			doSearch();
+		}
+	};
 
-                // Refresh contact list
-                doSearch();
-            }
-        };
-
-        xhr.send(jsonPayload);
-    }
-    catch (err)
-    {
-        document.getElementById("contactResult").innerHTML = err.message;
-    }
+	xhr.send(JSON.stringify(tmp));
 }
 
 //Modified from searchColor function
@@ -235,62 +221,56 @@ function doSearch()
 {
 	let srch = document.getElementById("searchText").value;
 	document.getElementById("searchResult").innerHTML = "";
-	
-	let contactList = "";
 
-	let tmp = {search:srch,userId:userId};
-	let jsonPayload = JSON.stringify( tmp );
+	let tmp = { search: srch, userId: userId };
+	let jsonPayload = JSON.stringify(tmp);
 
 	let url = urlBase + '/SearchContacts.' + extension;
-	
+
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
+
+	xhr.onreadystatechange = function ()
 	{
-		xhr.onreadystatechange = function() 
+		if (this.readyState === 4 && this.status === 200)
 		{
-			if (this.readyState == 4 && this.status == 200) 
+			let jsonObject = JSON.parse(xhr.responseText);
+
+			if (!jsonObject.results || jsonObject.results.length === 0)
 			{
-				let jsonObject = JSON.parse(xhr.responseText);
-
-				if (!jsonObject.results || jsonObject.results.length === 0)
-				{
-					document.getElementById("searchResult").innerHTML = "No contacts found";
-					return;
-				}
-
-				let contactList = "";
-
-				for (let i = 0; i < jsonObject.results.length; i++)
-				{
-					let c = jsonObject.results[i];
-
-					contactList += `
-						<div class="contactRow">
-							<span class="contactInfo">
-								${c.firstName} ${c.lastName} | ${c.phone} | ${c.email}
-							</span>
-							<button class="smallButton" onclick="editContact(${c.id})">
-								Edit
-							</button>
-							<button class="smallButton danger" onclick="deleteContact(${c.id})">
-								Delete
-							</button>
-						</div>
-					`;
-				}
-
-				document.getElementById("searchResult").innerHTML = contactList;
+				document.getElementById("searchResult").innerHTML = "No contacts found";
+				return;
 			}
-		};
 
-		xhr.send(jsonPayload);
-	}
-	catch(err)
-	{
-		document.getElementById("searchResult").innerHTML = err.message;
-	}
+			let html = "";
+
+			for (let i = 0; i < jsonObject.results.length; i++)
+			{
+				let c = jsonObject.results[i];
+
+				html += `
+					<div class="contactRow">
+						<span class="contactInfo">
+							${c.firstName} ${c.lastName} | ${c.phone} | ${c.email}
+						</span>
+						<button class="smallButton"
+							onclick='editContact(${JSON.stringify(c)})'>
+							Edit
+						</button>
+						<button class="smallButton danger"
+							onclick="deleteContact(${c.id})">
+							Delete
+						</button>
+					</div>
+				`;
+			}
+
+			document.getElementById("searchResult").innerHTML = html;
+		}
+	};
+
+	xhr.send(jsonPayload);
 }
 
 function deleteContact(contactId)
@@ -321,15 +301,60 @@ function deleteContact(contactId)
     xhr.send(jsonPayload);
 }
 
-function editContact(contactId)
+function editContact(contact)
 {
-    // Find the contact in the last search results
-    let rows = document.getElementsByClassName("contactRow");
+	//Store ID so addContact knows this is an edit
+	window.editingContactId = contact.id;
 
-    // For now, just store the ID globally
-    window.editingContactId = contactId;
+	// Autofill edit modal inputs
+	document.getElementById("editFirstName").value = contact.firstName;
+	document.getElementById("editLastName").value  = contact.lastName;
+	document.getElementById("editPhone").value     = contact.phone;
+	document.getElementById("editEmail").value     = contact.email;
 
-    // Tell user what’s happening
-    document.getElementById("contactResult").innerHTML =
-        "Editing contact. Make changes and click Save.";
+	//Show edit window
+	document.getElementById("editWindow").style.display = "block";
+
+	document.getElementById("contactResult").innerHTML =
+		"Editing contact. Make changes and click Save.";
+}
+
+//Save button in edit window
+function saveEdit()
+{
+	let firstName = document.getElementById("editFirstName").value;
+	let lastName  = document.getElementById("editLastName").value;
+	let phone     = document.getElementById("editPhone").value;
+	let email     = document.getElementById("editEmail").value;
+
+	let tmp = {
+		id: window.editingContactId,
+		firstName,
+		lastName,
+		phone,
+		email,
+		userId
+	};
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", urlBase + '/UpdateContact.' + extension, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+	xhr.onreadystatechange = function ()
+	{
+		if (this.readyState === 4 && this.status === 200)
+		{
+			closeEdit();
+			doSearch();
+		}
+	};
+
+	xhr.send(JSON.stringify(tmp));
+}
+
+//Cancel button in edit window
+function closeEdit()
+{
+	document.getElementById("editWindow").style.display = "none";
+	window.editingContactId = null;
 }
