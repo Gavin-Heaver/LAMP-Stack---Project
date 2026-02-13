@@ -1,14 +1,16 @@
 body {
-    background-color: #707070;
+    background-color: #b7e2f3;
+    margin: 0;
 }
 
 #title {
-    font-size: 40px;
+    font-size: 50px;
     width: 100%;
     margin: 2%;
     text-align: center;
-    font-family: 'Ubuntu', sans-serif;
-    color: #FFFFFF;
+    font-family: "Montserrat", sans-serif;
+    color: #000000;
+    /* -webkit-text-stroke:  1px rgb(255, 253, 253); */
 }
 
 #loginDiv, #signupDiv, #searchDiv, #addDiv {
@@ -16,7 +18,7 @@ body {
     width: 70%;
     margin-left: 15%;
     padding: 25px;
-    background-color: #b2b2b2;
+    background-color: #edfaff;
     border-radius: 25px;
 }
 
@@ -30,12 +32,13 @@ body {
     border-radius: 25px;
     width: 50%;
     margin-left: 25%;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: "Montserrat", sans-serif;
+    background-color: rgb(170, 194, 235);
 }
 
 .buttons:hover {
     background-color: #00d5124f;
-    color: #FFFFFF;
+    color: #ffffff;
     opacity: 50%;
 }
 
@@ -46,7 +49,7 @@ input[type="text"],input[type="password"] {
     width: 80%;
     margin-left: 10%;
     margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: "Montserrat", sans-serif;
 }
 
 .inner-title {
@@ -56,8 +59,8 @@ input[type="text"],input[type="password"] {
     text-align: center;
     margin-left: 5%;
     margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+    font-family: "Montserrat", sans-serif;
+    color: #000000;
 }
 
 #loginResult, #signupResult {
@@ -67,8 +70,8 @@ input[type="text"],input[type="password"] {
     text-align: center;
     margin-left: 5%;
     margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+    font-family: "Montserrat", sans-serif;
+    color: #000000;
 }
 
 #logoutButton {
@@ -83,8 +86,8 @@ input[type="text"],input[type="password"] {
     text-align: center;
     margin-left: 5%;
     margin-bottom: 2%;
-    font-family: 'Ubuntu', sans-serif;
-    color: #95060a;
+    font-family: "Montserrat", sans-serif;
+    color: #000000;
 }
 
 #searchResult {
@@ -103,7 +106,7 @@ input[type="text"],input[type="password"] {
     align-items: center;
     gap: 15px;
 
-    font-family: 'Ubuntu', sans-serif;
+    font-family: "Montserrat", sans-serif;
     font-size: 24px;
 }
 
@@ -118,7 +121,7 @@ input[type="text"],input[type="password"] {
     border-radius: 20px;
     padding: 8px 16px;
     border: none;
-    font-family: 'Ubuntu', sans-serif;
+    font-family: "Montserrat", sans-serif;
     cursor: pointer;
 }
 
@@ -156,9 +159,60 @@ input[type="text"],input[type="password"] {
 
 	z-index: 1001;
 	font-size: 30px;
-	font-family: 'Ubuntu', sans-serif;
+	font-family: "Montserrat", sans-serif;
 }
 
 #editWindow .buttons {
 	margin-top: 12px;
+}
+
+/* .image-area {
+    position: relative; 
+    width: 100%;
+    height: 600px;
+} */
+
+.image1 {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 50px; 
+    left: 90px;
+    transform: rotate(-20deg);
+}
+
+.image2 {
+    position: absolute;
+    bottom: 40px;
+    left: 120px;
+    width: 200px;
+    height: 200px;
+    z-index: 2;
+}
+
+.image3 {
+    position: absolute;
+    right: 50px;
+    width: 200px;
+    bottom: 200px;
+    transform: rotate(10deg);
+}
+
+.image4 {
+    position: absolute;
+    top: 80px;
+    left: 1200px;
+    width: 200px;
+    height: 200px;
+    transform: rotate(-5deg);
+}
+
+.image5 {
+    position: absolute;
+    width: 100%;   /* Stretches to the full width of its container */
+    height: 30%;  /* Stretches to the full height of its container */
+    object-fit: fill;
+    margin: 0;
+    bottom: -20px;
+    z-index: 1;
 }
