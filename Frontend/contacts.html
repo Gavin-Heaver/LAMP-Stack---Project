@@ -1,18 +1,15 @@
-<html>
+<!-- <html>
 	<head>
 		<title>Contact Manager</title>
 		<script type="text/javascript" src="js/code.js"></script>
 		<link href="css/styles.css" rel="stylesheet">	
 		<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 		
 		<script type="text/javascript">
-		// document.addEventListener('DOMContentLoaded', function() 
-		// {
-		// 	readCookie();
-		// }, false);
+		document.addEventListener('DOMContentLoaded', function() 
+		{
+			readCookie();
+		}, false);
 		</script>
 	</head>
 
@@ -65,5 +62,70 @@
 
 	</body>
 </html>
+ -->
 
+ <!-- This is jakes changes below for the edit window to work properly, 
+  didnt want to overwrite ur code tho just in case!! -->
 
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Contact Manager</title>
+		<script type="text/javascript" src="js/code.js"></script>
+		<link href="css/styles.css" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+
+		<script type="text/javascript">
+			document.addEventListener('DOMContentLoaded', function() {
+				readCookie();
+			}, false);
+		</script>
+	</head>
+
+	<body>
+
+		<h1 id="title">My Contacts</h1>
+
+		<!-- Search Contacts Section -->
+		<div id="searchDiv">
+			<span class="inner-title">Search Contacts</span><br />
+			<input type="text" id="searchText" placeholder="Search by name, phone, or email..." /><br />
+			<button type="button" id="searchButton" class="buttons" onclick="doSearch();">Search</button><br />
+			<div id="searchResult"></div>
+		</div>
+
+		<hr />
+
+		<!-- Add New Contact Section -->
+		<div id="addDiv">
+			<span class="inner-title">Add New Contact</span><br />
+			<input type="text" id="contactFirstName" placeholder="First Name" /><br />
+			<input type="text" id="contactLastName" placeholder="Last Name" /><br />
+			<input type="text" id="contactPhone" placeholder="Phone" /><br />
+			<input type="text" id="contactEmail" placeholder="Email" /><br />
+			<button type="button" id="addButton" class="buttons" onclick="addContact();">Add Contact</button><br />
+			<span id="contactResult"></span>
+		</div>
+
+		<hr />
+
+		<!-- Logout Section -->
+		<div id="logoutDiv">
+			<button type="button" id="logoutButton" class="buttons" onclick="doLogout();">Log Out</button>
+		</div>
+
+		<!-- Edit Contact Window -->
+		<div id="editOverlay" style="display:none;"></div>
+		<div id="editWindow" style="display:none;">
+			<span class="inner-title">Edit Contact</span><br />
+			<input type="text" id="editFirstName" placeholder="First Name" /><br />
+			<input type="text" id="editLastName" placeholder="Last Name" /><br />
+			<input type="text" id="editPhone" placeholder="Phone" /><br />
+			<input type="text" id="editEmail" placeholder="Email" /><br />
+			<button class="buttons" onclick="saveEdit()">Save</button><br />
+			<button class="buttons" onclick="closeEdit()">Cancel</button>
+		</div>
+
+	</body>
+</html>
