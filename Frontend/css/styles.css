@@ -172,47 +172,45 @@ input[type="text"],input[type="password"] {
     height: 600px;
 } */
 
-.image1 {
-    width: 200px;
-    height: 200px;
+.starfish {
+    width: 10vw;
+    height: 10vw;
     position: absolute;
-    top: 50px; 
-    left: 90px;
+    top: 7vh; 
+    left: 9vw;
     transform: rotate(-20deg);
 }
 
-.image2 {
+.coral {
     position: absolute;
-    bottom: 40px;
-    left: 120px;
-    width: 200px;
-    height: 200px;
+    bottom: -18vh + 5;
+    left: 8vw;
+    width: 13vw;
+    height: 25vh;
     z-index: 2;
 }
 
-.image3 {
+.fish {
     position: absolute;
-    right: 50px;
-    width: 200px;
-    bottom: 200px;
+    right: 2vw;
+    width: 13vw;
+    bottom: 9vh;
     transform: rotate(10deg);
 }
 
-.image4 {
+.seahorse {
     position: absolute;
-    top: 80px;
-    left: 1200px;
-    width: 200px;
-    height: 200px;
+    top: 7vh;
+    right: 7vw;
+    width: 13vw;
+    height: 25vh;
     transform: rotate(-5deg);
 }
 
-.image5 {
-    position: absolute;
-    width: 100%;   /* Stretches to the full width of its container */
+.sand {
+    width: 110%;   /* Stretches to the full width of its container */
     height: 30%;  /* Stretches to the full height of its container */
     object-fit: fill;
     margin: 0;
-    bottom: -20px;
     z-index: 1;
 }
