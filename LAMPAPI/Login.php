@@ -2,8 +2,8 @@
 	$inData = getRequestInfo();
 	
 	$id = 0;
-	$firstName = "";
-	$lastName = "";
+	$username = $inData["login"];
+	$password = $inData["password"];
 	
 	//change the connection to sql database to match updated
 	$conn = new mysqli("localhost", "team", "cop4331", "contact_manager"); 
@@ -14,16 +14,26 @@
 	} 
 	else // if it is do this 
 	{
-		//need to add code to do the hashing stuff
-		$stmt = $conn->prepare("SELECT id,firstName,lastName FROM users WHERE username=? AND password =?");
-		$stmt->bind_param("ss", $inData["login"], $inData["password"]); 
+		
+		$stmt = $conn->prepare("SELECT id,firstName,lastName,password FROM users WHERE username=?");
+		$stmt->bind_param("s", $inData["login"]); 
+
+
 		$stmt->execute();
 		$result = $stmt->get_result();
 		
 		
 		if( $row = $result->fetch_assoc()  )
 		{
-			returnWithInfo( $row['firstName'], $row['lastName'], $row['id'] );
+			if (password_verify($password, $row["password"]))
+			{
+				returnWithInfo( $row['firstName'], $row['lastName'], $row['id'] );
+			}
+			else
+			{
+				returnWithError("Invalid Username or Password");
+			}	
+			
 		}
 		else
 		{
