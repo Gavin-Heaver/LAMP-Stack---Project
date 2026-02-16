@@ -157,7 +157,7 @@
     inset 0 0 0 2px rgba(255,255,255,0.25),
     0 14px 35px rgba(0,0,0,0.10); */
 
-background: rgba(255,255,255,0.42); 
+background: rgba(255,255,255,0.42);
   padding: 16px 18px;
   border-radius: 18px;
   border: 1px solid rgba(255,255,255,0.60);
@@ -236,7 +236,7 @@ background: rgba(255,255,255,0.42);
 
 .pill-btn.ghost{
   background: rgba(255,255,255,0.28);
-  color: rgba(255,255,255,0.92);
+  color: rgba(13 42 67/ 72%);
   box-shadow: inset 0 0 0 2px rgba(255,255,255,0.22);
 }
 
@@ -332,10 +332,10 @@ background: rgba(255,255,255,0.42);
 
 
 .coral {
-  bottom: 60px; 
+  bottom: 60px;
   left: 70px;
   width: 140px;
-  z-index: 7; 
+  z-index: 7;
 }
 
 .left-seagrass {
@@ -359,7 +359,7 @@ background: rgba(255,255,255,0.42);
 .sand {
   position: absolute;
   left: -5%;
-  bottom: 0px;  
+  bottom: 0px;
   width: 110%;
   height: 230px;
   object-fit: visible;
@@ -373,14 +373,24 @@ background: rgba(255,255,255,0.42);
 }
 
 #searchDiv{
-  max-height: 340px;        
-  overflow: auto;           
+  max-height: 340px;
+  overflow: auto;
 }
 
 #searchDiv, #addDiv{
   box-shadow:
     0 0 35px rgba(79,180,255,0.35),
     inset 0 0 0 1px rgba(255,255,255,0.22);
+}
+
+#signupResult {
+  display: block;
+  text-align: center;
+}
+
+#loginResult {
+  display: block;
+  text-align: center;
 }
 
 #editOverlay{
@@ -412,4 +422,3 @@ background: rgba(255,255,255,0.42);
 #editWindow .two-col{
   margin-bottom: 10px;
 }
-
