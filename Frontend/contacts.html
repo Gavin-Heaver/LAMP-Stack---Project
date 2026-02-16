@@ -64,68 +64,129 @@
 </html>
  -->
 
- <!-- This is jakes changes below for the edit window to work properly, 
-  didnt want to overwrite ur code tho just in case!! -->
-
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title>Contact Manager</title>
-		<script type="text/javascript" src="js/code.js"></script>
-		<link href="css/styles.css" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Contacts</title>
 
-		<script type="text/javascript">
-			document.addEventListener('DOMContentLoaded', function() {
-				readCookie();
-			}, false);
-		</script>
-	</head>
+  <script src="js/code.js"></script>
 
-	<body>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
 
-		<h1 id="title">My Contacts</h1>
+  <link href="css/styles.css" rel="stylesheet" />
 
-		<!-- Search Contacts Section -->
-		<div id="searchDiv">
-			<span class="inner-title">Search Contacts</span><br />
-			<input type="text" id="searchText" placeholder="Search by name, phone, or email..." /><br />
-			<button type="button" id="searchButton" class="buttons" onclick="doSearch();">Search</button><br />
-			<div id="searchResult"></div>
-		</div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      readCookie();
+    }, false);
+  </script>
+</head>
 
-		<hr />
+<body class="ocean-body">
 
-		<!-- Add New Contact Section -->
-		<div id="addDiv">
-			<span class="inner-title">Add New Contact</span><br />
-			<input type="text" id="contactFirstName" placeholder="First Name" /><br />
-			<input type="text" id="contactLastName" placeholder="Last Name" /><br />
-			<input type="text" id="contactPhone" placeholder="Phone" /><br />
-			<input type="text" id="contactEmail" placeholder="Email" /><br />
-			<button type="button" id="addButton" class="buttons" onclick="addContact();">Add Contact</button><br />
-			<span id="contactResult"></span>
-		</div>
+  <div class="deep-app-frame">
+    <div class="deep-frame-water"></div>
+    <div class="bubbles"></div>
 
-		<hr />
+    <header class="frame-header">
+      <h1 class="frame-title">My Contacts</h1>
+    </header>
 
-		<!-- Logout Section -->
-		<div id="logoutDiv">
-			<button type="button" id="logoutButton" class="buttons" onclick="doLogout();">Log Out</button>
-		</div>
+    <main class="frame-content">
 
-		<!-- Edit Contact Window -->
-		<div id="editOverlay" style="display:none;"></div>
-		<div id="editWindow" style="display:none;">
-			<span class="inner-title">Edit Contact</span><br />
-			<input type="text" id="editFirstName" placeholder="First Name" /><br />
-			<input type="text" id="editLastName" placeholder="Last Name" /><br />
-			<input type="text" id="editPhone" placeholder="Phone" /><br />
-			<input type="text" id="editEmail" placeholder="Email" /><br />
-			<button class="buttons" onclick="saveEdit()">Save</button><br />
-			<button class="buttons" onclick="closeEdit()">Cancel</button>
-		</div>
+      <div id="searchDiv" class="panel-card">
+        <div class="panel-title">SEARCH CONTACTS</div>
 
-	</body>
+        <div class="pill-field">
+          <span class="pill-icon">🔎</span>
+          <input type="text" id="searchText" placeholder="Search by name, phone, or email..." />
+        </div>
+
+        <button type="button" id="searchButton" class="pill-btn" onclick="doSearch();">Search</button>
+
+        <div id="searchResult" class="results-area"></div>
+      </div>
+
+      <div id="addDiv" class="deep-panel-card">
+        <div class="panel-title">ADD NEW CONTACT</div>
+
+        <div class="two-col">
+          <div class="pill-field">
+            <span class="pill-icon">🧑</span>
+            <input type="text" id="contactFirstName" placeholder="First Name" />
+          </div>
+          <div class="pill-field">
+            <span class="pill-icon">🐠</span>
+            <input type="text" id="contactLastName" placeholder="Last Name" />
+          </div>
+        </div>
+
+        <div class="two-col">
+          <div class="pill-field">
+            <span class="pill-icon">📞</span>
+            <input type="text" id="contactPhone" placeholder="Phone" />
+          </div>
+          <div class="pill-field">
+            <span class="pill-icon">✉️</span>
+            <input type="text" id="contactEmail" placeholder="Email" />
+          </div>
+        </div>
+
+        <button type="button" id="addButton" class="pill-btn" onclick="addContact();">Add Contact</button>
+        <span id="contactResult" class="result-text"></span>
+      </div>
+
+      <div id="logoutDiv" class="panel-card" style="text-align:center;">
+        <button type="button" id="logoutButton" class="pill-btn ghost" onclick="doLogout();">Log Out</button>
+      </div>
+
+    </main>
+
+    <img src="images/coral.webp" class="deco deep-coral" alt="">
+    <img src="images/fish.webp" class="deco fish-main" alt="">
+	<img src="images/fish.webp" class="deco fish-small" alt="">
+    <img src="images/sand.webp" class="deco sand" alt="">
+	<img src="images/starfish.webp" class="deco deep-starfish" alt="">
+    <img src="images/seahorse.webp" class="deco deep-seahorse" alt="">
+	<img src="images/seagrass.webp" class="deco left-seagrass" alt="">
+	<img src="images/seagrass.webp" class="deco right-seagrass" alt="">
+	<img src="images/dolphin.png" class="deco dolphin" alt="">
+
+    <div id="editOverlay" style="display:none;"></div>
+    <div id="editWindow" style="display:none;" class="panel-card edit-card">
+      <div class="panel-title">EDIT CONTACT</div>
+
+      <div class="two-col">
+        <div class="pill-field">
+          <span class="pill-icon">🧑</span>
+          <input type="text" id="editFirstName" placeholder="First Name" />
+        </div>
+        <div class="pill-field">
+          <span class="pill-icon">🐠</span>
+          <input type="text" id="editLastName" placeholder="Last Name" />
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="pill-field">
+          <span class="pill-icon">📞</span>
+          <input type="text" id="editPhone" placeholder="Phone" />
+        </div>
+        <div class="pill-field">
+          <span class="pill-icon">✉️</span>
+          <input type="text" id="editEmail" placeholder="Email" />
+        </div>
+      </div>
+
+      <button class="pill-btn" onclick="saveEdit()">Save</button>
+      <button class="pill-btn ghost" onclick="closeEdit()">Cancel</button>
+    </div>
+
+  </div>
+
+</body>
 </html>
