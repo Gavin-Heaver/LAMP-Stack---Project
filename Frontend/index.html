@@ -1,48 +1,90 @@
-<html>
-	<head>
-		<title>Contacts</title>
-		<script type="text/javascript" src="js/md5.js"></script>
-		<script type="text/javascript" src="js/code.js"></script>
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-		<link href="css/styles.css" rel="stylesheet">	
-		<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-	</head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>School of Contacts</title>
 
-	<body>
+  <script src="js/md5.js"></script>
+  <script src="js/code.js"></script>
 
-	<h1 id="title">School of Contacts</h1>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
 
-	<div id="loginDiv">
-		<span class="inner-title">LOG IN</span>
-		<input type="text" id="loginName" placeholder="Username" /><br />
-		<input type="password" id="loginPassword" placeholder="Password"/><br />
-		<button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Log In </button>
-		<span id="loginResult"></span>
-	</div>
+  <link href="css/styles.css" rel="stylesheet" />
+</head>
 
-	<br />
+<body class="ocean-body">
 
-	<div id="signupDiv">
-		<span class="inner-title">SIGN UP</span>
-		<input type="text" id="firstName" placeholder="First name" /><br />
-		<input type="text" id="lastName" placeholder="Last name" /><br />
-		<input type="text" id="signupName" placeholder="Username" /><br />
-		<input type="password" id="signupPassword" placeholder="Password"/><br />
-		<button type="button" id="signupButton" class="buttons" onclick="doSignup();"> Create Account </button>
-		<span id="signupResult"></span>
-	</div>
+  <div class="app-frame">
+    <div class="frame-water"></div>
+    <div class="bubbles"></div>
 
-		
-	
-	</body>
+    <header class="frame-header">
+      <h1 class="frame-title">School of Contacts</h1>
+    </header>
 
-	<img src="images/starfish.png" class="starfish">
-		<img src="images/coral.png" class="coral">
-		<img src="images/fish.png" class="fish">
-		<img src="images/seahorse.png" class="seahorse">
-		<img src="images/sand.png" class="sand">
+    <main class="frame-content">
+
+      <section id="loginDiv" class="panel-card">
+        <div class="panel-title">LOG IN</div>
+
+        <div class="pill-field">
+          <span class="pill-icon">👤</span>
+          <input type="text" id="loginName" placeholder="Username" />
+        </div>
+
+        <div class="pill-field">
+          <span class="pill-icon">🔒</span>
+          <input type="password" id="loginPassword" placeholder="Password" />
+        </div>
+
+        <button type="button" id="loginButton" class="pill-btn" onclick="doLogin();">Log In</button>
+        <span id="loginResult" class="result-text"></span>
+      </section>
+
+      <div class="wave-line"></div>
+
+      <section id="signupDiv" class="panel-card">
+        <div class="panel-title">SIGN UP</div>
+
+        <div class="pill-field">
+          <span class="pill-icon">🧑</span>
+          <input type="text" id="firstName" placeholder="First name" />
+        </div>
+
+        <div class="pill-field">
+          <span class="pill-icon">🐠</span>
+          <input type="text" id="lastName" placeholder="Last name" />
+        </div>
+
+        <div class="pill-field">
+          <span class="pill-icon">👤</span>
+          <input type="text" id="signupName" placeholder="Username" />
+        </div>
+
+        <div class="pill-field">
+          <span class="pill-icon">🔒</span>
+          <input type="password" id="signupPassword" placeholder="Password" />
+        </div>
+
+        <button type="button" id="signupButton" class="pill-btn" onclick="doSignup();">Create Account</button>
+        <span id="signupResult" class="result-text"></span>
+      </section>
+
+    </main>
+
+    <img src="images/starfish.webp" class="deco starfish" alt="">
+    <img src="images/seahorse.webp" class="deco seahorse" alt="">
+    <img src="images/fish.webp" class="deco fish" alt="">
+    <img src="images/coral.webp" class="deco coral" alt="">
+    <img src="images/sand.webp" class="deco sand" alt="">
+
+  </div>
+
+</body>
 </html>
+
 
 
